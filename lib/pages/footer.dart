@@ -88,7 +88,6 @@ class _Link extends StatelessWidget {
     required this.link,
     required this.text,
     required this.colorScheme,
-    super.key,
   });
 
   final String link;
