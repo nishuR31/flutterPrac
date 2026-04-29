@@ -1,3 +1,4 @@
+import "package:boardvault/shared/scrollBehaviour.dart";
 import "package:flutter/material.dart";
 import "/routes/index.dart";
 
@@ -37,6 +38,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
       ),
       routerConfig: appRouter,
+      scrollBehavior: CustomScrollBehaviour(),
     );
   }
 }
