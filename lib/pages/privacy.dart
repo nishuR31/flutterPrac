@@ -90,6 +90,25 @@ class _PrivacyState extends State<Privacy> {
                   'Any local app settings stay on your device unless a feature says otherwise.',
               colorScheme: colorScheme,
             ),
+
+            const SizedBox(height: 12),
+            Text(
+              'We use stored content only to power the app: board descriptions, images, and metadata. We do not sell or share user-identifying data. Server logs may contain IPs for short-term troubleshooting and security.',
+              style: TextStyle(
+                fontSize: 14,
+                height: 1.5,
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'We retain content required for the service. Access to servers is limited and standard security practices (updates, firewalls) are used. If you believe we hold data about you that should be removed, contact the maintainers.',
+              style: TextStyle(
+                fontSize: 14,
+                height: 1.5,
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
             const SizedBox(height: 24),
 
             Footer(scrollController: scrollController),

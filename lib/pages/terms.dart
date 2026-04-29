@@ -86,6 +86,20 @@ class _TermsState extends State<Terms> {
                   'Content is provided as-is, so always double-check wiring and hardware details in their official documentations.',
               colorScheme: colorScheme,
             ),
+            const SizedBox(height: 12),
+            _TermRow(
+              icon: Icons.healing_outlined,
+              text:
+                  'You use the content at your own risk. Follow hardware datasheets and safety guidelines when connecting electronics.',
+              colorScheme: colorScheme,
+            ),
+            const SizedBox(height: 12),
+            _TermRow(
+              icon: Icons.update_outlined,
+              text:
+                  'The project is maintained openly and terms may be updated. We will try to note major changes in the app.',
+              colorScheme: colorScheme,
+            ),
             const SizedBox(height: 24),
             Divider(color: colorScheme.outlineVariant),
             const SizedBox(height: 12),

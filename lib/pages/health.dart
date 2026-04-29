@@ -99,11 +99,11 @@ class _HealthState extends State<Health> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.cloud_sharp,
-                    size: 36,
-                    color: colorScheme.onPrimary,
-                  ),
+                  // Icon(
+                  //   Icons.cloud_sharp,
+                  //   size: 36,
+                  //   color: colorScheme.onPrimary,
+                  // ),
                   SizedBox(width: 20),
                   Expanded(
                     child: Text(

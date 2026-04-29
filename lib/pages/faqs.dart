@@ -102,6 +102,27 @@ class _FAQsState extends State<FAQs> {
                   'It uses Flutter for the frontend, Material3 for UI , Node with Fastify for backend services, Prisma ORM with Postgres Database and Redis for caching.',
               colorScheme: colorScheme,
             ),
+            const SizedBox(height: 12),
+            _FaqItem(
+              question: 'What is an SBC vs a microcontroller?',
+              answer:
+                  'A Single Board Computer (SBC) like Raspberry Pi runs a full OS and is suited for desktop-like tasks. Microcontrollers like Arduino are lightweight, run a single program, and are ideal for real-time hardware control.',
+              colorScheme: colorScheme,
+            ),
+            const SizedBox(height: 12),
+            _FaqItem(
+              question: 'Which popular SBCs are covered?',
+              answer:
+                  'Common SBCs you will find here include Raspberry Pi, Banana Pi, and BeagleBone. Each entry has a short description and key pins to help you get started.',
+              colorScheme: colorScheme,
+            ),
+            const SizedBox(height: 12),
+            _FaqItem(
+              question: 'Do I need special tools to work with these boards?',
+              answer:
+                  'Basic tools: a USB cable, power supply, jumper wires, and a breadboard. For SBCs you may need a microSD card with an OS image. For microcontrollers you need a simple programmer or USB interface.',
+              colorScheme: colorScheme,
+            ),
             const SizedBox(height: 24),
 
             Footer(scrollController: scrollController),

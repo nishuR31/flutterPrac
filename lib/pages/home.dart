@@ -75,6 +75,42 @@ class _HomeState extends State<Home> {
               ),
             ),
             const SizedBox(height: 18),
+            Text(
+              'Quick intro: SBCs and microcontrollers',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: colorScheme.primary,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              color: colorScheme.surface,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Raspberry Pi — full Linux SBC, great for media, servers, and general-purpose projects.',
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      'Banana Pi — similar to Raspberry Pi with different SoCs; good for hobbyist projects.',
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      'BeagleBone — focused on real-time IO and industrial use-cases.',
+                    ),
+                    SizedBox(height: 6),
+                    Text(
+                      'Arduino — classic microcontroller platform for low-level hardware control.',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 18),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
