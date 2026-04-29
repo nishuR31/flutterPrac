@@ -42,12 +42,14 @@ class Error extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton.icon(
                     onPressed: () => context.push('/'),
                     icon: Icon(Icons.arrow_right_outlined),
                     label: const Text('Go home'),
                   ),
+                  const SizedBox(width: 10),
                   ElevatedButton.icon(
                     onPressed: () => context.pop(context),
                     icon: Icon(Icons.arrow_left_outlined),

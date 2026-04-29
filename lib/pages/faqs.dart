@@ -81,6 +81,27 @@ class _FAQsState extends State<FAQs> {
                   'Only features that load data from a backend like boards data or specific board data or remote source need a network connection.',
               colorScheme: colorScheme,
             ),
+            const SizedBox(height: 12),
+            _FaqItem(
+              question: 'Do I need to register?',
+              answer:
+                  'Absolutely no, the service is open and free to use, no need to register for anything',
+              colorScheme: colorScheme,
+            ),
+            const SizedBox(height: 12),
+            _FaqItem(
+              question: 'Does it steal my data anonymously?',
+              answer:
+                  'No, this app is build securely to just display data and not to steal any user data.',
+              colorScheme: colorScheme,
+            ),
+            const SizedBox(height: 12),
+            _FaqItem(
+              question: 'What tech stack its using?',
+              answer:
+                  'It uses Flutter for the frontend, Material3 for UI , Node with Fastify for backend services, Prisma ORM with Postgres Database and Redis for caching.',
+              colorScheme: colorScheme,
+            ),
             const SizedBox(height: 24),
 
             Footer(scrollController: scrollController),

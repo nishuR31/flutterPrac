@@ -95,27 +95,37 @@ class _HealthState extends State<Health> {
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Icon(Icons.cloud_sharp, size: 56, color: colorScheme.primary),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Text(
-                    "Backend is currently ${_down ? "Down" : "Up"}",
-                    style: TextStyle(
-                      fontSize: 14,
-                      height: 1.5,
-                      color: colorScheme.primary,
-                    ),
-                    textAlign: TextAlign.center,
+            Center(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.cloud_sharp,
+                    size: 36,
+                    color: colorScheme.onPrimary,
                   ),
-                ),
-              ],
+                  SizedBox(width: 20),
+                  Expanded(
+                    child: Text(
+                      "Backend is currently ${_down ? "Down" : "Up"}",
+                      style: TextStyle(
+                        fontSize: 14,
+                        height: 1.5,
+                        color: colorScheme.primary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _loading ? null : _pingBackend,
-              child: Text(_loading ? 'Pinging...' : 'Ping health route'),
+            Center(
+              child: ElevatedButton.icon(
+                onPressed: _loading ? null : _pingBackend,
+                label: Text(_loading ? 'Pinging...' : 'Ping health route'),
+                icon: Icon(Icons.network_ping_rounded),
+              ),
             ),
             const SizedBox(height: 20),
             Text(

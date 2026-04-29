@@ -22,7 +22,7 @@ class Footer extends StatelessWidget {
         children: [
           Divider(color: colorScheme.outlineVariant),
           const SizedBox(height: 14),
-          Center(
+          Expanded(
             child: Column(
               children: [
                 Container(
@@ -33,15 +33,19 @@ class Footer extends StatelessWidget {
                     color: colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(16),
                   ),
+
                   child: Image.asset('logo.png', fit: BoxFit.contain),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  'Board Vault',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: colorScheme.primary,
+                GestureDetector(
+                  onTap: () => scrollToTop(),
+                  child: Text(
+                    'Board Vault',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: colorScheme.primary,
+                    ),
                   ),
                 ),
               ],
@@ -49,7 +53,7 @@ class Footer extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Wrap(
-            alignment: WrapAlignment.center,
+            alignment: WrapAlignment.spaceAround,
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 16,
             runSpacing: 10,
@@ -66,7 +70,7 @@ class Footer extends StatelessWidget {
                 onTap: scrollToTop,
                 child: Icon(
                   Icons.arrow_upward_rounded,
-                  color: colorScheme.primary,
+                  color: colorScheme.onTertiary,
                 ),
               ),
             ],

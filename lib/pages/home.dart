@@ -132,16 +132,13 @@ class _HomeState extends State<Home> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.lightbulb_outline_rounded,
-                  color: colorScheme.tertiary,
-                ),
+                Icon(Icons.search_outlined, color: colorScheme.primary),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    "This page stays lightweight with a simple title, a short description, a few icon lines, and one button.",
+                    "Just find or search through what you\'re looking for.",
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 14,
                       height: 1.5,
                       color: colorScheme.onSurfaceVariant,
                     ),
@@ -149,6 +146,25 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+            const SizedBox(height: 16),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.safety_check, color: colorScheme.primary),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    "No registration, no data extraction from user, no users' data at risk.",
+                    style: TextStyle(
+                      fontSize: 14,
+                      height: 1.5,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
             const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
