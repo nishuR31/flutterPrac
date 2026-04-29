@@ -25,20 +25,23 @@ class Footer extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                Container(
-                  width: 64,
-                  height: 64,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                GestureDetector(
+                  onTap: () => context.go("/"),
+                  child: Container(
+                    width: 64,
+                    height: 64,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
 
-                  child: Image.asset('logo.png', fit: BoxFit.contain),
+                    child: Image.asset('logo.png', fit: BoxFit.contain),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 GestureDetector(
-                  onTap: () => scrollToTop(),
+                  onTap: () => context.go("/"),
                   child: Text(
                     'Board Vault',
                     style: TextStyle(
