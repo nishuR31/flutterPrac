@@ -63,13 +63,6 @@ class _HealthState extends State<Health> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Health | Uptime'),
-        centerTitle: true,
-        backgroundColor: Color(0x000000),
-        foregroundColor: colorScheme.onPrimary,
-        elevation: 0,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

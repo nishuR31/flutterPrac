@@ -28,13 +28,6 @@ class _HomeState extends State<Home> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Board Vault"),
-        centerTitle: true,
-        backgroundColor: Color(0x000000),
-        foregroundColor: colorScheme.onPrimary,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         controller: scrollController,
         padding: const EdgeInsets.all(16),
@@ -48,7 +41,7 @@ class _HomeState extends State<Home> {
               "Welcome to Board Vault",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 36,
                 fontWeight: FontWeight.bold,
                 color: colorScheme.primary,
               ),

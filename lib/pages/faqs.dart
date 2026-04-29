@@ -28,13 +28,6 @@ class _FAQsState extends State<FAQs> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('FAQs'),
-        centerTitle: true,
-        backgroundColor: Color(0x000000),
-        foregroundColor: colorScheme.onPrimary,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         controller: scrollController,
         padding: const EdgeInsets.all(16),
@@ -111,9 +104,8 @@ class _FaqItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Icon(Icons.question_mark_rounded, color: colorScheme.primary),
         const SizedBox(width: 12),

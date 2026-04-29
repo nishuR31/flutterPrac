@@ -28,13 +28,6 @@ class _TermsState extends State<Terms> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Terms or Use and Services'),
-        centerTitle: true,
-        backgroundColor: Color(0x000000),
-        foregroundColor: colorScheme.onPrimary,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         controller: scrollController,
         padding: const EdgeInsets.all(16),

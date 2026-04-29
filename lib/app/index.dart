@@ -25,18 +25,40 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lightScheme = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF0F4C81),
+      brightness: Brightness.light,
+    );
+    final darkScheme = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF7CC7FF),
+      brightness: Brightness.dark,
+    );
+
     return MaterialApp.router(
       title: "Board Vault",
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purpleAccent),
+        colorScheme: lightScheme,
+        scaffoldBackgroundColor: lightScheme.surface,
+        cardColor: lightScheme.surfaceContainerHighest,
+        dividerColor: lightScheme.outlineVariant,
+        textTheme: Typography.blackMountainView.apply(
+          bodyColor: lightScheme.onSurface,
+          displayColor: lightScheme.onSurface,
+        ),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.black,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
+        colorScheme: darkScheme,
+        scaffoldBackgroundColor: darkScheme.surface,
+        cardColor: darkScheme.surfaceContainerHighest,
+        dividerColor: darkScheme.outlineVariant,
+        textTheme: Typography.whiteMountainView.apply(
+          bodyColor: darkScheme.onSurface,
+          displayColor: darkScheme.onSurface,
+        ),
       ),
+      themeMode: ThemeMode.system,
       routerConfig: appRouter,
       scrollBehavior: CustomScrollBehaviour(),
     );

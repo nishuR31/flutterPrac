@@ -11,13 +11,6 @@ class Error extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Page not found'),
-        centerTitle: true,
-        backgroundColor: Color(0x000000),
-        foregroundColor: colorScheme.onPrimary,
-        elevation: 0,
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24),

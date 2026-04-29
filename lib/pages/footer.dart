@@ -15,35 +15,70 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Row(
-      children: [
-        const SizedBox(height: 12),
-        Divider(color: colorScheme.outlineVariant),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _Link(link: "/health", text: "Health", colorScheme: colorScheme),
-            const SizedBox(width: 16),
-            _Link(link: "/privacy", text: "Privacy", colorScheme: colorScheme),
-            const SizedBox(width: 16),
-            _Link(link: "/terms", text: "Terms", colorScheme: colorScheme),
-            const SizedBox(width: 16),
-            _Link(link: "/faqs", text: "FAQs", colorScheme: colorScheme),
-            const SizedBox(width: 16),
-            GestureDetector(
-              onTap: scrollToTop,
-              child: Icon(Icons.arrow_upward, color: colorScheme.primary),
+    return Padding(
+      padding: const EdgeInsets.only(top: 12, bottom: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Divider(color: colorScheme.outlineVariant),
+          const SizedBox(height: 14),
+          Center(
+            child: Column(
+              children: [
+                Container(
+                  width: 64,
+                  height: 64,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Image.asset('logo.png', fit: BoxFit.contain),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Board Vault',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: colorScheme.primary,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Text(
-          "© 2026 Board Vault - All rights reserved",
-          style: TextStyle(fontSize: 12, color: colorScheme.onSurfaceVariant),
-        ),
-      ],
+          ),
+          const SizedBox(height: 14),
+          Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 16,
+            runSpacing: 10,
+            children: [
+              _Link(link: '/health', text: 'Health', colorScheme: colorScheme),
+              _Link(
+                link: '/privacy',
+                text: 'Privacy',
+                colorScheme: colorScheme,
+              ),
+              _Link(link: '/terms', text: 'Terms', colorScheme: colorScheme),
+              _Link(link: '/faqs', text: 'FAQs', colorScheme: colorScheme),
+              GestureDetector(
+                onTap: scrollToTop,
+                child: Icon(
+                  Icons.arrow_upward_rounded,
+                  color: colorScheme.primary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            '© 2026 Board Vault - All rights reserved',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12, color: colorScheme.onSurfaceVariant),
+          ),
+        ],
+      ),
     );
   }
 }

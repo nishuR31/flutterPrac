@@ -28,13 +28,6 @@ class _PrivacyState extends State<Privacy> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Privacy Policies'),
-        centerTitle: true,
-        backgroundColor: Color(0x000000),
-        foregroundColor: colorScheme.onPrimary,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         controller: scrollController,
         padding: const EdgeInsets.all(16),
