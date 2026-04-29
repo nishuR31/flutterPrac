@@ -35,7 +35,7 @@ class App extends StatelessWidget {
       darkTheme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.black,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
       ),
       routerConfig: appRouter,
       scrollBehavior: CustomScrollBehaviour(),

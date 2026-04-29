@@ -31,8 +31,8 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text("Board Vault"),
         centerTitle: true,
-        backgroundColor: colorScheme.surface,
-        foregroundColor: colorScheme.primary,
+        backgroundColor: Color(0x000000),
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
       ),
       body: SingleChildScrollView(

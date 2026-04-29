@@ -15,13 +15,14 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Column(
+    return Row(
       children: [
         const SizedBox(height: 12),
         Divider(color: colorScheme.outlineVariant),
         const SizedBox(height: 12),
-        Column(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _Link(link: "/health", text: "Health", colorScheme: colorScheme),
             const SizedBox(width: 16),

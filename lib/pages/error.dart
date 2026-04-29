@@ -14,8 +14,8 @@ class Error extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Page not found'),
         centerTitle: true,
-        backgroundColor: colorScheme.surface,
-        foregroundColor: colorScheme.primary,
+        backgroundColor: Color(0x000000),
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
       ),
       body: Center(

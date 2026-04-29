@@ -66,8 +66,8 @@ class _HealthState extends State<Health> {
       appBar: AppBar(
         title: const Text('Health | Uptime'),
         centerTitle: true,
-        backgroundColor: colorScheme.surface,
-        foregroundColor: colorScheme.primary,
+        backgroundColor: Color(0x000000),
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
       ),
       body: Padding(

@@ -31,8 +31,8 @@ class _PrivacyState extends State<Privacy> {
       appBar: AppBar(
         title: const Text('Privacy Policies'),
         centerTitle: true,
-        backgroundColor: colorScheme.surface,
-        foregroundColor: colorScheme.primary,
+        backgroundColor: Color(0x000000),
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -98,7 +98,6 @@ class _PrivacyState extends State<Privacy> {
               colorScheme: colorScheme,
             ),
             const SizedBox(height: 24),
-            Divider(color: colorScheme.outlineVariant),
 
             Footer(scrollController: scrollController),
           ],

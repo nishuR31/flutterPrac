@@ -31,8 +31,8 @@ class _TermsState extends State<Terms> {
       appBar: AppBar(
         title: const Text('Terms or Use and Services'),
         centerTitle: true,
-        backgroundColor: colorScheme.surface,
-        foregroundColor: colorScheme.primary,
+        backgroundColor: Color(0x000000),
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
       ),
       body: SingleChildScrollView(
