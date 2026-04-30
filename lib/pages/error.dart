@@ -46,7 +46,7 @@ class Error extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () => context.push('/'),
-                    icon: Icon(Icons.arrow_right_outlined),
+                    icon: Icon(Icons.arrow_left_outlined),
                     label: const Text('Go home'),
                   ),
                   const SizedBox(width: 10),

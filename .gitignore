@@ -35,6 +35,11 @@ migrate_working_dir/
 !/build/web/**
 /coverage/
 
+# Local environment files and Android signing secrets
+.env
+.env.*
+android/.env
+
 # Symbolication related
 app.*.symbols
 

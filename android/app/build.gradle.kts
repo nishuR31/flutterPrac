@@ -1,9 +1,39 @@
+import java.io.File
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+
+fun loadEnvFiles(): Map<String, String> {
+    val candidates = listOf(
+        rootProject.file("../.env"),
+        rootProject.file(".env"),
+    )
+
+    val envFile = candidates.firstOrNull { it.exists() } ?: return emptyMap()
+    return envFile.readLines()
+        .mapNotNull { line ->
+            val trimmed = line.trim()
+            if (trimmed.isEmpty() || trimmed.startsWith("#")) {
+                return@mapNotNull null
+            }
+
+            val separatorIndex = trimmed.indexOf('=')
+            if (separatorIndex <= 0) {
+                return@mapNotNull null
+            }
+
+            val key = trimmed.substring(0, separatorIndex).trim()
+            val value = trimmed.substring(separatorIndex + 1).trim().removeSurrounding("\"")
+            key to value
+        }
+        .toMap()
+}
+
+val signingEnv = loadEnvFiles()
 
 android {
     namespace = "com.example.boardvault"
@@ -32,9 +62,31 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            val keystoreFileName = signingEnv["KEYSTORE_FILE"]
+            val keystorePassword = signingEnv["KEYSTORE_PASSWORD"]
+            val keyAlias = signingEnv["KEY_ALIAS"]
+            val keyPassword = signingEnv["KEY_PASSWORD"]
+
+            if (
+                keystoreFileName != null &&
+                keystorePassword != null &&
+                keyAlias != null &&
+                keyPassword != null
+            ) {
+                signingConfig = signingConfigs.create("release") {
+                    val keystorePath = File(
+                        rootProject.file("..").canonicalFile,
+                        keystoreFileName,
+                    )
+
+                    storeFile = keystorePath
+                    storePassword = keystorePassword
+                    this.keyAlias = keyAlias
+                    this.keyPassword = keyPassword
+                }
+            } else {
+                signingConfig = signingConfigs.getByName("debug")
+            }
         }
     }
 }

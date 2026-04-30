@@ -204,7 +204,7 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 20),
             GestureDetector(
               onTap: () {
-                // context.go("/boards");
+                // context.push("/boards");
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

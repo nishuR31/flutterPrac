@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import './footer.dart';
 
 class Maintainers extends StatefulWidget {
@@ -92,6 +93,13 @@ class _PersonRow extends StatelessWidget {
   final String github;
   final ColorScheme colorScheme;
 
+  Future<void> _openGitHub() async {
+    final uri = Uri.parse('https://github.com/$github');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -119,11 +127,15 @@ class _PersonRow extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 6),
-              Text(
-                'GitHub: $github',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: colorScheme.onSurfaceVariant,
+              GestureDetector(
+                onTap: _openGitHub,
+                child: Text(
+                  'GitHub: $github',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: colorScheme.tertiary,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ],

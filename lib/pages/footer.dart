@@ -26,7 +26,7 @@ class Footer extends StatelessWidget {
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () => context.go("/"),
+                  onTap: () => context.push("/"),
                   child: Container(
                     width: 64,
                     height: 64,
@@ -41,7 +41,7 @@ class Footer extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 GestureDetector(
-                  onTap: () => context.go("/"),
+                  onTap: () => context.push("/"),
                   child: Text(
                     'Board Vault',
                     style: TextStyle(
@@ -105,7 +105,7 @@ class _Link extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go(link);
+        context.push(link);
       },
       child: Text(
         text,
