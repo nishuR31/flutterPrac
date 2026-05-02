@@ -36,8 +36,6 @@ bunCache/
 /build/*
 !/build/web/
 !/build/web/**
-!/build/app/outputs/flutter-apk/app-release/apk
-/build
 /coverage/
 
 # Local environment files and Android signing secrets
