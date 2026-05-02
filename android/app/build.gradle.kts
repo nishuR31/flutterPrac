@@ -1,4 +1,6 @@
 import java.io.File
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -35,6 +37,13 @@ fun loadEnvFiles(): Map<String, String> {
 
 val signingEnv = loadEnvFiles()
 
+// Load optional key.properties (created by Android tooling or manually)
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
 android {
     namespace = "com.example.boardvault"
     compileSdk = flutter.compileSdkVersion
@@ -62,10 +71,15 @@ android {
 
     buildTypes {
         release {
-            val keystoreFileName = signingEnv["KEYSTORE_FILE"]
-            val keystorePassword = signingEnv["KEYSTORE_PASSWORD"]
-            val keyAlias = signingEnv["KEY_ALIAS"]
-            val keyPassword = signingEnv["KEY_PASSWORD"]
+            // Prefer properties from android/key.properties when present,
+            // otherwise fall back to environment-style keys read from .env
+            val keystoreFileName = keystoreProperties.getProperty("storeFile")
+                ?: signingEnv["KEYSTORE_FILE"]
+            val keystorePassword = keystoreProperties.getProperty("storePassword")
+                ?: signingEnv["KEYSTORE_PASSWORD"]
+            val keyAlias = keystoreProperties.getProperty("keyAlias") ?: signingEnv["KEY_ALIAS"]
+            val keyPassword = keystoreProperties.getProperty("keyPassword")
+                ?: signingEnv["KEY_PASSWORD"]
 
             if (
                 keystoreFileName != null &&

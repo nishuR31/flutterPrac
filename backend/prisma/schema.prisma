@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Type {
+  SBC
+  MC
+}
+
+model Board {
+  id       String  @id @default(uuid())
+  name     String @unique
+  type     Type
+
+  photo String? @default("Will be updated soon...")
+  description String? @default("Will be updated soon...")
+  pinDiagram String? @default("Will be updated soon...")
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+  @@index([name])
+  @@map("users")
+}
