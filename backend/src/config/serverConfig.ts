@@ -1,17 +1,18 @@
 import fastify from "fastify";
 import { FastifyReply, FastifyRequest } from "fastify";
 import cors from "@fastify/cors";
-import cookie from "@fastify/cookie";
 import multipart from "@fastify/multipart";
 
-import auth from "../middlewares/auth";
+import { STATUS_CODES } from "../utils/common/constants";
+import apiRouter from "../routes/apiRoutes";
+import { sendError } from "../utils/common/response";
+
 import errorHandler from "../middlewares/errorHandlerMiddleware";
 import { TooManyRequestsError } from "../utils/errors/error";
 import { RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS } from "./envConfig";
 
 let fastifyApp = fastify({ logger: true, exposeHeadRoutes: true });
 fastifyApp.register(cors, { origin: true });
-fastifyApp.register(cookie);
 fastifyApp.register(multipart);
 const rateLimitWindow = RATE_LIMIT_WINDOW_SECONDS;
 const rateLimitReq = RATE_LIMIT_MAX_REQUESTS;
@@ -63,7 +64,38 @@ fastifyApp.addHook("onRequest", async (req: FastifyRequest, reply: FastifyReply)
 fastifyApp.get("/", (req: FastifyRequest, res: FastifyReply) => {
   res.code(200).send({ message: "Server fired up" });
 });
-fastifyApp.addHook("preHandler", auth);
+fastifyApp.register(apiRouter);
+
+fastifyApp.get("/health", (req: FastifyRequest, res: FastifyReply) => {
+  res.status(STATUS_CODES.OK).send({
+    success: true,
+    message: "API is healthy and is running",
+    timestamp: new Date().toLocaleString(),
+    uptime: process.uptime(),
+  });
+});
+fastifyApp.get("/ping", (req: FastifyRequest, res: FastifyReply) => {
+  res.status(STATUS_CODES.OK).send({ pong: "pong" });
+});
+
+fastifyApp.get("/today", (req: FastifyRequest, res: FastifyReply) => {
+  res.code(200).send({
+    date: new Date().toLocaleString("en-IN", {
+      hour: "2-digit",
+      hour12: true,
+      year: "numeric",
+      month: "long",
+      weekday: "long",
+      day: "numeric",
+      minute: "2-digit",
+      second: "2-digit",
+    }),
+  });
+});
+
+fastifyApp.setNotFoundHandler((req: FastifyRequest, res: FastifyReply) => {
+  sendError(res, "Route not found", STATUS_CODES.NOT_FOUND);
+});
 fastifyApp.setErrorHandler(errorHandler);
 
 export default fastifyApp;

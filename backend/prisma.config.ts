@@ -2,6 +2,14 @@
 // npm install --save-dev prisma dotenv
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
+import { DATABASE_URL } from "../backend/src/config/envConfig";
+
+const url = process.env.DB_URL || DATABASE_URL;
+if (!url) {
+  throw new Error(
+    "Database URL not set. Please set DB_URL or DATABASE_URL in your environment or .env before running Prisma commands.",
+  );
+}
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -9,6 +17,8 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DB_URL"],
+    url,
   },
 });
+
+console.log(url);

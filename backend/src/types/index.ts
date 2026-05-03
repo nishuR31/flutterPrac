@@ -3,7 +3,8 @@ export type BoardType = "SBC" | "MC";
 export type BoardBody = {
   name: string;
   type: BoardType;
-  photo?: string;
+  photoFront?: string;
+  photoBack?: string;
   description?: string;
   pinDiagram?: string;
 };
@@ -25,6 +26,3 @@ export type DeleteBody = {
 export type FindOneBody = {
   name: string;
 };
-
-export type { TestUser } from "./testUser";
-export { testUser } from "./testUser";

@@ -12,8 +12,8 @@ const redis = new Redis(REDIS_URL, {
   lazyConnect: true,
 });
 
-redis.on("connect", () => console.info("Redis connected"));
-redis.on("error", (err) => console.error("Redis error", { error: err.message }));
+redis.on("connect", () => console.info("Ram installed"));
+redis.on("error", (err) => console.log("Redis error", err));
 redis.on("close", () => console.warn("Redis connection closed"));
 
 export async function disconnectRedis(): Promise<void> {

@@ -4,7 +4,7 @@ import { CRUD_PASSWORD } from "../config/envConfig";
 import { UnauthorizedError } from "../utils/errors/error";
 
 type PasswordBody = {
-  password?: string;
+  password: string;
 };
 
 export default function requireCrudPassword(

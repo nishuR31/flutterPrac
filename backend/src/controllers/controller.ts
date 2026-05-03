@@ -25,7 +25,24 @@ type UpdateRequest = FastifyRequest<{
 
 export const create = asyncHandler(
   async (req: CreateRequest, res: FastifyReply): Promise<any> => {
-    const result = await service.create(req.body);
+    // collect multipart files (photoFront, photoBack, pinDiagram) if any
+    const files: Record<string, any> = {};
+    // folderId may come in body for Drive destination
+    const bodyAny: any = req.body as any;
+    const folderId = bodyAny?.folderId;
+
+    if ((req as any).files && typeof (req as any).files === "function") {
+      for await (const part of (req as any).files()) {
+        if (!part || !part.fieldname) continue;
+        files[part.fieldname] = part;
+      }
+    }
+
+    const result = await service.create(
+      req.body,
+      Object.keys(files).length ? files : undefined,
+      folderId,
+    );
     sendSuccess(res, result, "Data successfully added", STATUS_CODES.CREATED);
   },
 );

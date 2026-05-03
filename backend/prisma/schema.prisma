@@ -17,7 +17,7 @@ model Board {
   name     String @unique
   type     Type
 
-  photo String? @default("Will be updated soon...")
+  photoFront String? @default("Will be updated soon...")
   description String? @default("Will be updated soon...")
   pinDiagram String? @default("Will be updated soon...")
 

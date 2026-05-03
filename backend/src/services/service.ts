@@ -2,6 +2,7 @@ import BoardRepository from "../repositories/boardRepository";
 import { CreateBody, UpdateBody } from "../types";
 import { NotFoundError } from "../utils/errors/error";
 import { getOrSet, del, set } from "../utils/cache/cache";
+import { uploadFile } from "../controllers/controller";
 
 const boardRepo = new BoardRepository();
 
@@ -10,10 +11,36 @@ const BOARD_BY_NAME = (name: string) => `board:name:${name}`;
 const BOARD_BY_ID = (id: string) => `board:id:${id}`;
 
 export default class Service {
-  async create(data: CreateBody) {
-    const { password: _password, ...payload } = data;
-    const created = await boardRepo.create(payload);
+  async create(data: CreateBody, files?: Record<string, any>, folderId?: string) {
+    const { password, ...payload } = data;
+    const payloadAny: any = payload;
+    // if files provided, upload them first and attach urls to payload
+    try {
+      if (files && folderId) {
+        const uploadKeys: Record<string, string> = {};
+        for (const key of Object.keys(files)) {
+          const file = files[key];
+          if (!file) continue;
+          const uploaded = await this.upload(
+            {
+              filename: file.filename,
+              mimetype: file.mimetype,
+              file: file.file,
+            },
+            folderId,
+          );
+          uploadKeys[key] = uploaded.url;
+        }
+
+        // map known keys to payload fields
+        if (uploadKeys.photoFront) payloadAny.photoFront = uploadKeys.photoFront;
+        if (uploadKeys.pinDiagram) payloadAny.pinDiagram = uploadKeys.pinDiagram;
+      }
+    } catch (e) {
+      // don't fail cache logic; propagate after trying to create record
+    }
     // invalidate list cache, set individual cache
+    const created = await boardRepo.create(payloadAny);
     try {
       await Promise.all([
         del(ALL_BOARDS_KEY),
