@@ -38,6 +38,8 @@ bunCache/
 !/build/web/**
 /coverage/
 
+boards/
+
 # Local environment files and Android signing secrets
 .env
 .env.*
