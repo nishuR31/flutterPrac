@@ -9,7 +9,13 @@ import { sendError } from "../utils/common/response";
 
 import errorHandler from "../middlewares/errorHandlerMiddleware";
 import { TooManyRequestsError } from "../utils/errors/error";
-import { RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS } from "./envConfig";
+import {
+  RATE_LIMIT_MAX_REQUESTS,
+  RATE_LIMIT_WINDOW_SECONDS,
+  NODE_ENV,
+  PORT,
+  BACKEND,
+} from "./envConfig";
 
 let fastifyApp = fastify({ logger: true, exposeHeadRoutes: true });
 fastifyApp.register(cors, { origin: true });
@@ -76,6 +82,18 @@ fastifyApp.get("/health", (req: FastifyRequest, res: FastifyReply) => {
 });
 fastifyApp.get("/ping", (req: FastifyRequest, res: FastifyReply) => {
   res.status(STATUS_CODES.OK).send({ pong: "pong" });
+});
+fastifyApp.get("/help", (req: FastifyRequest, res: FastifyReply) => {
+  let data: object = {
+    Environment: NODE_ENV,
+    Port: `${PORT}`,
+    Address: `${BACKEND}`,
+    Health: `${BACKEND}/health`,
+    Date: `${BACKEND}/date`,
+    Ping: `${BACKEND}/ping`,
+    "API Base": `${BACKEND}/api/v1`,
+  };
+  res.status(STATUS_CODES.OK).send(data);
 });
 
 fastifyApp.get("/today", (req: FastifyRequest, res: FastifyReply) => {

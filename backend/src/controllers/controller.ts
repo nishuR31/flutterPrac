@@ -31,10 +31,12 @@ export const create = asyncHandler(
     const bodyAny: any = req.body as any;
     const folderId = bodyAny?.folderId;
 
-    if ((req as any).files && typeof (req as any).files === "function") {
-      for await (const part of (req as any).files()) {
-        if (!part || !part.fieldname) continue;
-        files[part.fieldname] = part;
+    if (typeof (req as any).isMultipart === "function" && (req as any).isMultipart()) {
+      if ((req as any).files && typeof (req as any).files === "function") {
+        for await (const part of (req as any).files()) {
+          if (!part || !part.fieldname) continue;
+          files[part.fieldname] = part;
+        }
       }
     }
 

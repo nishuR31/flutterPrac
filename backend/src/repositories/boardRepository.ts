@@ -1,6 +1,6 @@
 import { Board } from "../generated/prisma/client";
 import BaseRepository from "./baseRepository";
-import { drive } from "../utils/drive";
+import { drive, getOrCreateDriveFolder } from "../utils/drive";
 export default class BoardRepository extends BaseRepository<Board> {
   constructor() {
     super("board");
@@ -8,11 +8,12 @@ export default class BoardRepository extends BaseRepository<Board> {
 
   // your setup
 
-  createFile = async (data: any, folderId: any) => {
+  createFile = async (data: any, folderId?: any, folderName?: string) => {
+    const resolvedFolderId = folderId || (await getOrCreateDriveFolder(folderName));
     const res = await drive.files.create({
       requestBody: {
         name: data.filename,
-        parents: [folderId],
+        parents: [resolvedFolderId],
       },
       media: {
         mimeType: data.mimetype,

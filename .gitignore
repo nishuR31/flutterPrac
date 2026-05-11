@@ -37,7 +37,7 @@ bunCache/
 !/build/web/
 !/build/web/**
 /coverage/
-
+boardvault/backend/boardvault-3d538d2e7750.json
 boards/
 
 # Local environment files and Android signing secrets

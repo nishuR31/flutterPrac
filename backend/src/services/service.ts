@@ -2,7 +2,9 @@ import BoardRepository from "../repositories/boardRepository";
 import { CreateBody, UpdateBody } from "../types";
 import { NotFoundError } from "../utils/errors/error";
 import { getOrSet, del, set } from "../utils/cache/cache";
-import { uploadFile } from "../controllers/controller";
+import { compressImage, bufferToStream } from "../utils/imageCompress";
+import { DRIVE_FOLDER_NAME } from "../config/envConfig";
+import { getOrCreateDriveFolder } from "../utils/drive";
 
 const boardRepo = new BoardRepository();
 
@@ -16,7 +18,10 @@ export default class Service {
     const payloadAny: any = payload;
     // if files provided, upload them first and attach urls to payload
     try {
-      if (files && folderId) {
+      if (files) {
+        const uploadFolderId =
+          folderId ||
+          (await getOrCreateDriveFolder(payloadAny.name || DRIVE_FOLDER_NAME));
         const uploadKeys: Record<string, string> = {};
         for (const key of Object.keys(files)) {
           const file = files[key];
@@ -27,7 +32,7 @@ export default class Service {
               mimetype: file.mimetype,
               file: file.file,
             },
-            folderId,
+            uploadFolderId,
           );
           uploadKeys[key] = uploaded.url;
         }
@@ -41,15 +46,13 @@ export default class Service {
     }
     // invalidate list cache, set individual cache
     const created = await boardRepo.create(payloadAny);
-    try {
-      await Promise.all([
-        del(ALL_BOARDS_KEY),
-        set(BOARD_BY_ID(created.id), created, 60 * 5),
-        set(BOARD_BY_NAME(created.name), created, 60 * 5),
-      ]);
-    } catch (e) {
+    void Promise.all([
+      del(ALL_BOARDS_KEY),
+      set(BOARD_BY_ID(created.id), created, 60 * 5),
+      set(BOARD_BY_NAME(created.name), created, 60 * 5),
+    ]).catch(() => {
       // ignore cache errors
-    }
+    });
     return created;
   }
 
@@ -78,15 +81,13 @@ export default class Service {
     const board = await boardRepo.findById(id);
     const updated = await boardRepo.update(board.id, payload);
 
-    try {
-      await Promise.all([
-        del([ALL_BOARDS_KEY, BOARD_BY_ID(id), BOARD_BY_NAME(board.name)]),
-        set(BOARD_BY_ID(updated.id), updated, 60 * 5),
-        set(BOARD_BY_NAME(updated.name), updated, 60 * 5),
-      ]);
-    } catch (e) {
+    void Promise.all([
+      del([ALL_BOARDS_KEY, BOARD_BY_ID(id), BOARD_BY_NAME(board.name)]),
+      set(BOARD_BY_ID(updated.id), updated, 60 * 5),
+      set(BOARD_BY_NAME(updated.name), updated, 60 * 5),
+    ]).catch(() => {
       // ignore cache errors
-    }
+    });
 
     return updated;
   }
@@ -94,16 +95,33 @@ export default class Service {
   async deleteOne(id: string) {
     const board = await boardRepo.findById(id);
     const deleted = await boardRepo.deleteOne(board.id);
-    try {
-      await del([ALL_BOARDS_KEY, BOARD_BY_ID(id), BOARD_BY_NAME(board.name)]);
-    } catch (e) {
+    void del([ALL_BOARDS_KEY, BOARD_BY_ID(id), BOARD_BY_NAME(board.name)]).catch(() => {
       // ignore cache errors
-    }
+    });
     return deleted;
   }
 
   async upload(data: any, folderId: any) {
-    const createdFile = await boardRepo.createFile(data, folderId);
+    try {
+      if (
+        data &&
+        data.mimetype &&
+        typeof data.mimetype === "string" &&
+        data.mimetype.startsWith("image/")
+      ) {
+        // compress image stream or buffer
+        const compressed = await compressImage(data.file, data.mimetype);
+        data.file = bufferToStream(compressed);
+        // normalize to jpeg for lossy compression when appropriate
+        if (!/png/i.test(data.mimetype)) {
+          data.mimetype = "image/jpeg";
+        }
+      }
+    } catch (e) {
+      // if compression fails, proceed with original file
+    }
+
+    const createdFile = await boardRepo.createFile(data, folderId, DRIVE_FOLDER_NAME);
     const fileId = createdFile.data.id;
     await boardRepo.createPermission(fileId);
     return {
